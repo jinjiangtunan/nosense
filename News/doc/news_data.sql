@@ -1,29 +1,65 @@
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for hs_media
--- ----------------------------
-DROP TABLE IF EXISTS `news_data`;
-CREATE TABLE `news_data`  (
+CREATE TABLE `news_data_translate` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `author` varchar(255)  DEFAULT NULL COMMENT '作者',
-  `comment` text  DEFAULT NULL COMMENT '评论',
-  `content` longtext  DEFAULT NULL COMMENT '文章内容 纯文本',
-  `creationTime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `excavateDataFileList` longtext  DEFAULT NULL COMMENT '附件(包含图片、PDF、其他)',
-  `imgList` text  DEFAULT NULL COMMENT '文章图片原链接',
-  `keywords`  varchar(255)  DEFAULT NULL COMMENT '关键词',
-  `publicDate` varchar(255)  DEFAULT NULL COMMENT '文章发布日期格式，例: 2020-01-30$yyyy-MM-dd',
-  `publicDateTime` varchar(255)  DEFAULT NULL COMMENT '文章发布时间',
-  `refernceUrl` varchar(255)  DEFAULT NULL COMMENT '文章域名',
-  `region` varchar(255)  DEFAULT NULL COMMENT '网站所属国家',
-
-  `siteCofId` varchar(255)  DEFAULT NULL COMMENT '媒体板块名称ID，对应hs_media_section表mediaSectionId字段',
-  `siteCofName` varchar(255)  DEFAULT NULL COMMENT '媒体板块名称，对应hs_media_section表mediaSectionName字段',
-  `title` varchar(255)  DEFAULT NULL COMMENT '文章标题',
-  `url` varchar(1000)  DEFAULT NULL COMMENT '文章URL链接',
-  `tag` tinyint(4) DEFAULT 0,
-    
+  `author` varchar(255) DEFAULT NULL COMMENT '作者',
+  `comment` text COMMENT '评论',
+  `content` longtext COMMENT '文章内容 纯文本',
+  `contentTranslation` longtext COMMENT '文章内容 翻译结果',
+  `creationTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `excavateDataFileList` longtext COMMENT '附件(包含图片、PDF、其他)',
+  `imgList` text COMMENT '文章图片原链接',
+  `keywords` varchar(255) DEFAULT NULL COMMENT '关键词',
+  `pubtime` varchar(255) DEFAULT NULL COMMENT '原始发布时间',
+  `publicDate` varchar(255) DEFAULT NULL COMMENT '文章发布日期格式，例: 2020-01-30$yyyy-MM-dd',
+  `publicDateTime` varchar(255) DEFAULT NULL COMMENT '文章发布时间',
+  `refernceUrl` varchar(255) DEFAULT NULL COMMENT '文章域名',
+  `region` varchar(255) DEFAULT NULL COMMENT '网站所属国家',
+  `siteCofId` varchar(255) DEFAULT NULL COMMENT '媒体板块名称ID，对应hs_media_section表mediaSectionId字段',
+  `siteCofName` varchar(255) DEFAULT NULL COMMENT '媒体板块名称，对应hs_media_section表mediaSectionName字段',
+  `title` varchar(255) DEFAULT NULL COMMENT '文章标题',
+  `titleTranslation` varchar(255) DEFAULT NULL COMMENT '文章标题翻译结果',
+  `url` varchar(1000) DEFAULT NULL COMMENT '文章URL链接',
+  `time_diff` tinyint NOT NULL DEFAULT '0' COMMENT '时间差，单位：小时',
+  `srcl` varchar(10) NOT NULL COMMENT '语言代码  en 英语 zh 汉语',
+  `tag` tinyint NOT NULL DEFAULT '0' COMMENT '备注是否处理过',
   PRIMARY KEY (`id`) USING BTREE
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1011 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `dsj_zyrwfx_news_translate` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `person_id` varchar(255) NOT NULL COMMENT '人物ID',
+  `website_source` varchar(255) DEFAULT NULL COMMENT '网站来源',
+  `website_domain` varchar(255) NOT NULL COMMENT '网站域名',
+  `Website_type` varchar(255) DEFAULT NULL COMMENT '网站类型',
+  `language` varchar(255) DEFAULT NULL COMMENT '语言',
+  `author` varchar(255) DEFAULT NULL COMMENT '作者',
+  `news_type` varchar(255) DEFAULT NULL COMMENT '新闻类型',
+  `data_source_url` varchar(1000) DEFAULT NULL COMMENT '新闻链接',
+  `title` varchar(1000) DEFAULT NULL COMMENT '新闻标题',
+  `title_cn` varchar(1000) DEFAULT NULL COMMENT '新闻标题翻译',
+  `content` longtext COMMENT '新闻正文',
+  `content_cn` longtext COMMENT '新闻正文翻译',
+  `pubtime` varchar(255) DEFAULT NULL COMMENT '发布时间',
+  `publish_time` varchar(255) DEFAULT NULL COMMENT '发布时间',
+  `comment_count` varchar(255) DEFAULT NULL COMMENT '评论数',
+  `read_count` varchar(255) DEFAULT NULL COMMENT '阅读数',
+  `image_url` varchar(1000) DEFAULT NULL COMMENT '图片链接',
+  `video_url` varchar(1000) DEFAULT NULL COMMENT '视频/PDF地址',
+  `image_org_url` varchar(1000) DEFAULT NULL COMMENT '图片源链接',
+  `video_cover` varchar(1000) DEFAULT NULL COMMENT '视频封面',
+  `video_org_url` varchar(1000) DEFAULT NULL COMMENT '视频源/PDF链接',
+  `original_tags` varchar(255) DEFAULT NULL COMMENT '原标签',
+  `original_keywords` varchar(255) DEFAULT NULL COMMENT '原关键词',
+  `is_retweeted` tinyint(1) DEFAULT NULL COMMENT '是否转载',
+  `repost_source` varchar(255) DEFAULT NULL COMMENT '转载来源',
+  `repost_platform_name` varchar(255) DEFAULT NULL COMMENT '来源网站的板块名',
+  `plate_platform_url` varchar(255) DEFAULT NULL COMMENT '来源网站的板块地址',
+  `if_front_position` tinyint(1) DEFAULT NULL COMMENT '是否头版位置',
+  `special_name` varchar(255) DEFAULT NULL COMMENT '热点专题名称',
+  `special_keyword` varchar(255) DEFAULT NULL COMMENT '专题关键词',
+  `srcl` varchar(10) DEFAULT NULL COMMENT '网站语言代码  en 英语 zh 汉语',
+  `create_time` datetime DEFAULT NULL COMMENT '采集时间',
+  `time_diff` tinyint DEFAULT '0' COMMENT '时间差，单位:小时',
+  `tag` tinyint DEFAULT '0',
+  PRIMARY KEY (`id`,`person_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=545100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
